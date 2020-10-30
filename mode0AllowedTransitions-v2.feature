@@ -61,13 +61,15 @@ Feature: ECPC_STATE changes according to supervisor command when ECPC Test Mode 
     | ECPC_ONLINE_STABLE      | ECPC_GOTO_READY     | ECPC_READY_STABLE       |
     | ECPC_ONLINE_STABLE      | ECPC_GOTO_ERROR     | ECPC_ONLINE_ERROR       |
 
-
   Scenario Outline: ECPC_FC goes from <state_1> to <state_2> when PLC_STATE cmd is "ECPC_PLC_CONFIGURED"
     Given ECPC_FC is in APP_STATE <state_1>
     When PLC_SIM sends PLC_STATE equal to "ECPC_PLC_PROT_CONF"
     Then FC_DIAGN sets APP_STATE to <state_2> before "3" seconds
 
-  Examples: IDLE_STABLE Transitions
+  Examples: s2-given-protconf-progress
     | state_1                 | state_2               |
     | ECPC_PROT_CONF_PROGRESS | ECPC_PROT_CONF_STABLE |
+
+  Examples s2-given-protconf-stable-scenario:
+    | state_1                 | state_2               |
     | ECPC_PROT_CONF_STABLE   | ECPC_IDLE_STABLE      |
